@@ -1,7 +1,5 @@
-import { Container, Graphics, TextStyle, Text, Texture, Sprite } from 'pixi.js';
-
-import { createBackground } from '../entities/background.js';
+import { createMatchGrid } from '../entities/index.js';
 
 export async function setupGame(app) {
-	await createBackground(app);
+	await createMatchGrid(app);
 }

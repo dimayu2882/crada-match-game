@@ -2,12 +2,15 @@ import { Application } from 'pixi.js';
 import { initDevtools } from '@pixi/devtools';
 
 export async function createApp() {
+	const parent = document.getElementById('pixi-container');
 	const app = new Application();
+	
 	await app.init({
-		background: '#1099bb',
+		background: '#cc873a',
 		antialias: true,
-		width: 600,
-		height: 852,
+		resizeTo: parent,
+		autoDensity: true,
+		resolution: parent.devicePixelRatio || 1,
 	});
 	
 	// Store the application in the global scope for debugging purposes
