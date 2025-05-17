@@ -1,5 +1,5 @@
 import { Sprite, Assets } from 'pixi.js';
-import bgUrl from '@img/wood.png';
+import bgUrl from '/img/wood.png';
 
 export default async function createBackground(app) {
 	const texture = await Assets.load(bgUrl);

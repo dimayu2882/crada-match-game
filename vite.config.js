@@ -9,11 +9,6 @@ export default defineConfig({
 		port: 8080,
 		open: true,
 	},
-	resolve: {
-		alias: {
-			'@img': path.resolve(__dirname, './src/assets/img/'),
-		},
-	},
 	build: {
 		sourcemap: true
 	}

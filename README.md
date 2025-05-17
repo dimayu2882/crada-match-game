@@ -1,6 +1,6 @@
 # Crada match game playable
 
-![Логотип или скриншот игры](src/assets/img/game.png)
+![Логотип или скриншот игры](public/img/game.png)
 
 **Краткое описание**: Playable, созданный на движке PixiJS, где игроку предстоит [].
 
