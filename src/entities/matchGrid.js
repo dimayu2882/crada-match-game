@@ -1,15 +1,13 @@
-import { Sprite, Assets, Container, Graphics } from 'pixi.js';
+import { Sprite, Assets, Container } from 'pixi.js';
 
 import bgUrl from '/img/wood.png';
-import tileUrl from '/img/tile.png';
-import tileActiveUrl from '/img/tile_yellow.png';
-import { ROWS, COLS, STARS } from '../constants/index.js';
-import { getRandomElement } from '../helpers/index.js';
+import { ROWS, COLS } from '../constants/index.js';
+import { handleMatchCellClick } from '../game/handleMatchCellClick.js'
+import createCell from './cell.js'
 
 export default async function createMatchGrid(app) {
 	const parentContainer = new Container();
 	const paddings = 32;
-	const starPadding = 10;
 	
 	const textureBg = await Assets.load(bgUrl);
 	const spriteBg = new Sprite(textureBg);
@@ -23,40 +21,16 @@ export default async function createMatchGrid(app) {
 		const mathGridContainer = new Container();
 		
 		const cells = [];
-		const cellSize = Math.min(
-			app.screen.width / 2 / COLS,
-			app.screen.height / ROWS
-		);
 		
 		for (let row = 0; row < ROWS; row++) {
 			cells[row] = [];
 			
 			for (let col = 0; col < COLS; col++) {
-				const cellContainer = new Container();
-				
-				const tile = Assets.load(tileUrl);
-				const cellBg = new Sprite(await tile);
-				
-				const tileActive = Assets.load(tileActiveUrl);
-				const cellBgActive = new Sprite(await tileActive);
-				
-				const star = Assets.load(getRandomElement(STARS).url);
-				const cellStar = new Sprite(await star);
-				cellStar.position.set(starPadding, starPadding);
-				
-				Object.assign(cellContainer, {
-					position: {
-						x: col * cellSize + cellSize / 2 + col * paddings / 4,
-						y: row * cellSize + cellSize / 2
-					},
-					pivot: { x: cellSize / 2, y: cellSize / 2 },
-					interactive: true,
-					cursor: 'pointer',
-				});
-				
-				cellContainer.addChild(cellBgActive, cellBg, cellStar);
+				const cellContainer = await createCell(app, col, row, paddings);
 				
 				mathGridContainer.addChild(cellContainer);
+				
+				cellContainer.on('pointerdown', handleMatchCellClick)
 			}
 		}
 		
@@ -73,6 +47,6 @@ export default async function createMatchGrid(app) {
 	
 	parentContainer.x = app.screen.width / 2;
 	
-	app.stage.addChild(parentContainer);
+	return parentContainer;
 }
 

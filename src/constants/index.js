@@ -1,8 +1,5 @@
-import { Assets, Sprite } from 'pixi.js';
-
 const ROWS = 7;
 const COLS = 6;
-const CELL_SIZE = 60;
 const STARS =
 	[
 		{
@@ -47,4 +44,4 @@ const STARS =
 		}
 	];
 
-export { ROWS, COLS, CELL_SIZE, STARS };
+export { ROWS, COLS, STARS };
