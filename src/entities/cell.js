@@ -20,7 +20,7 @@ export default async function createCell(app, col, row, paddings) {
 	const randomStarObject = getRandomElement(STARS);
 	const cellStar = await createSprite(randomStarObject.url);
 	
-	cellStar.position.set(10, 6);
+	cellStar.position.set(10, 4);
 	
 	Object.assign(cellContainer, {
 		position: {
