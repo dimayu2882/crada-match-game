@@ -1,11 +1,24 @@
-import { createMatchGrid, createSceneLeft } from '../entities/index.js';
+import {
+	createBackgroundDark,
+	createMatchGrid,
+	createPerson,
+	createSceneLeft
+} from '../entities/index.js'
 
 export async function setupGame(app) {
 	
-	//Добавление на сцену контейнера с ячейками
+	//контейнера с ячейками
 	const mathGrid = await createMatchGrid(app);
-	app.stage.addChild(mathGrid.parentContainer);
 	
+	//левый контейнер
 	const sceneLeft = await createSceneLeft(app);
-	app.stage.addChild(sceneLeft);
+	
+	//левый контейнер вторая сцена
+	
+	const {container: bgDark, pendulum} = await createBackgroundDark(app);
+	
+	const person = await createPerson();
+	pendulum._zIndex = 100;
+	
+	app.stage.addChild(mathGrid, sceneLeft, bgDark, person);
 }

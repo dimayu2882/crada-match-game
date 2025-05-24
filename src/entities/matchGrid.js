@@ -5,7 +5,7 @@ import { ROWS, COLS } from '../constants/index.js';
 import { createSprite } from '../helpers/index.js';
 import createCell from './cell.js';
 
-export default async function createMatchGrid(app) {
+export default async function   createMatchGrid(app) {
 	const gameState = {
 		activeCells: [],
 		clickCount: 0
@@ -114,8 +114,6 @@ export default async function createMatchGrid(app) {
 	
 	parentContainer.x = app.screen.width / 2;
 	
-	return {
-		parentContainer,
-	}
+	return parentContainer;
 }
 

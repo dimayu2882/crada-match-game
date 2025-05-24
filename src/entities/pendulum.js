@@ -1,16 +1,15 @@
-import bgUrlLight from '/img/light_room.png';
 import { Container } from 'pixi.js'
+
+import pendulumUrl from '/img/pendulum.png';
 import { createSprite } from '../helpers/index.js'
 
-export default async function createSceneLeft(app) {
+export default async function createPendulum(app) {
 	const container = new Container();
 	
-	const bgLight = await createSprite(bgUrlLight);
-	bgLight.width = app.screen.width / 2;
-	bgLight.height = app.screen.height;
-	bgLight.position.set(0, 0);
+	const pendulum = await createSprite(pendulumUrl);
+	pendulum.anchor.set(0, .2);
 	
-	container.addChild(bgLight);
+	container.addChild(pendulum);
 	
 	return container;
 }
