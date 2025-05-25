@@ -5,7 +5,11 @@ export function getRandomElement(array) {
 	return array[randomIndex];
 }
 
-export async function createSprite(url) {
-	const texture = await Assets.load(url);
+export function createSprite(textureKey) {
+	const texture = Assets.cache.get(textureKey);
+	if (!texture) {
+		throw new Error(`Текстура ${textureKey} не найдена в кэше`);
+	}
 	return new Sprite(texture);
 }
+

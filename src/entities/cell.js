@@ -1,26 +1,24 @@
 import { Container, Ticker } from 'pixi.js';
+import { allTextureKeys } from '../common/assets.js';
 
-import tileUrl from '/img/tile.png';
-import tileActiveUrl from '/img/tile_yellow.png';
-import { COLS, ROWS, STARS } from '../constants/index.js'
-import { getRandomElement, createSprite } from '../helpers/index.js'
+import { COLS, ROWS, STARS } from '../common/constants.js';
+import { createSprite, getRandomElement } from '../helpers/index.js';
 
 export default async function createCell(app, col, row, paddings) {
 	const cellSize = Math.min(
 		app.screen.width / 2 / COLS,
 		app.screen.height / ROWS
-	);
+	)
 	
-	const cellContainer = new Container();
+	const cellContainer = new Container()
 	
 	const [cellBg, cellBgActive] = await Promise.all([
-		createSprite(tileUrl),
-		createSprite(tileActiveUrl)
+		createSprite(allTextureKeys.tile),
+		createSprite(allTextureKeys.tileYellow)
 	]);
-	const randomStarObject = getRandomElement(STARS);
-	const cellStar = await createSprite(randomStarObject.url);
-	
-	cellStar.position.set(10, 4);
+	const randomStarObject = getRandomElement(STARS)
+	const cellStar = await createSprite(randomStarObject.textureKey);
+	cellStar.position.set(10, 4)
 	
 	Object.assign(cellContainer, {
 		position: {
@@ -32,60 +30,59 @@ export default async function createCell(app, col, row, paddings) {
 		cursor: 'pointer',
 		label: `${randomStarObject.name}`,
 		customData: {
-			isActive: false,
+			isActive: false
 		}
-	});
+	})
 	
-	cellContainer.addChild( cellBgActive, cellBg, cellStar);
+	cellContainer.addChild(cellBgActive, cellBg, cellStar)
 	
 	const cellMethods = {
 		activate() {
-			cellContainer.customData.isActive = true;
-			cellBg.alpha = 0;
-			cellBgActive.alpha = 1;
+			cellContainer.customData.isActive = true
+			cellBg.alpha = 0
+			cellBgActive.alpha = 1
 			
-			const ticker = new Ticker();
-			let scale = 1;
-			let phase = 'down';
+			const ticker = new Ticker()
+			let scale = 1
+			let phase = 'down'
 			
 			ticker.add(() => {
 				if (phase === 'down') {
-					scale -= 0.01;
-					if (scale <= 0.85) phase = 'up';
+					scale -= 0.01
+					if (scale <= 0.85) phase = 'up'
 				} else {
-					scale += 0.01;
+					scale += 0.01
 					if (scale >= 1) {
-						scale = 1;
-						ticker.stop();
+						scale = 1
+						ticker.stop()
 					}
 				}
-				cellContainer.scale.set(scale);
-			});
-			ticker.start();
+				cellContainer.scale.set(scale)
+			})
+			ticker.start()
 		},
 		
 		deactivate() {
-			cellContainer.customData.isActive = false;
-			cellContainer.scale.set(1);
-			cellBg.alpha = 1;
-			cellBgActive.alpha = 0;
+			cellContainer.customData.isActive = false
+			cellContainer.scale.set(1)
+			cellBg.alpha = 1
+			cellBgActive.alpha = 0
 		},
 		
 		getContainer() {
-			return cellContainer;
+			return cellContainer
 		},
 		
 		getLabel() {
-			return cellContainer.label;
+			return cellContainer.label
 		},
 		
 		isActive() {
-			return cellContainer.customData.isActive;
+			return cellContainer.customData.isActive
 		}
-	};
+	}
 	
-	cellMethods.deactivate();
+	cellMethods.deactivate()
 	
-	return cellMethods;
+	return cellMethods
 }
-

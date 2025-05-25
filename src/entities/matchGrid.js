@@ -1,7 +1,7 @@
-import { Container } from 'pixi.js';
+import { Container } from 'pixi.js'
+import { allTextureKeys } from '../common/assets.js'
 
-import bgUrl from '/img/wood.png';
-import { ROWS, COLS } from '../constants/index.js';
+import { COLS, ROWS } from '../common/constants.js';
 import { createSprite } from '../helpers/index.js';
 import createCell from './cell.js';
 
@@ -14,7 +14,7 @@ export default async function   createMatchGrid(app) {
 	const parentContainer = new Container();
 	const paddings = 32;
 	
-	const spriteBg = await createSprite(bgUrl);
+	const spriteBg = await createSprite(allTextureKeys.wood);
 	spriteBg.width = app.screen.width / 2;
 	spriteBg.height = app.screen.height;
 	
@@ -116,4 +116,3 @@ export default async function   createMatchGrid(app) {
 	
 	return parentContainer;
 }
-

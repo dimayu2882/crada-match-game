@@ -4,11 +4,10 @@ import {
 	AnimatedSprite,
 	Assets,
 	Ticker,
-	Texture
-} from 'pixi.js';
+} from 'pixi.js'
 
-import bgUrlDark from '/img/dark_room.png';
-import { createSprite } from '../helpers/index.js';
+import { allTextureKeys } from '../common/assets.js'
+import { createSprite } from '../helpers/index.js'
 import { createPendulum } from './index.js'
 
 export default async function createBackgroundDark(app) {
@@ -20,7 +19,7 @@ export default async function createBackgroundDark(app) {
 	pendulum._zIndex = 100;
 	
 	// 1. Фон
-	const bgDark = await createSprite(bgUrlDark);
+	const bgDark = await createSprite(allTextureKeys.darkRoom);
 	bgDark.width = app.screen.width / 2;
 	bgDark.height = app.screen.height;
 	container.addChild(bgDark);

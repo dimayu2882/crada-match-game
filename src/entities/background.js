@@ -1,10 +1,9 @@
-import { Sprite, Assets } from 'pixi.js';
-import bgUrl from '/img/wood.png';
+import { Assets } from 'pixi.js';
+import { allTextureKeys } from '../common/assets.js'
+import { createSprite } from '../helpers/index.js'
 
 export default async function createBackground(app) {
-	const texture = await Assets.load(bgUrl);
-	
-	const sprite = new Sprite(texture);
+	const sprite = createSprite(Assets.cache.get(allTextureKeys.lightRoom));
 	sprite.width = app.screen.width;
 	sprite.height = app.screen.height;
 	app.stage.addChild(sprite);

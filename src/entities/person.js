@@ -1,15 +1,13 @@
-import { Container, Ticker } from 'pixi.js'
+import { Container, Ticker } from 'pixi.js';
+import { allTextureKeys } from '../common/assets.js';
 
-import { createSprite } from '../helpers/index.js'
-import urlPerson from '/img/woman.png';
-import urlPersonShadow from '/img/sh_woman.png';
-import urlPersonEyelids from '/img/eyelids_woman.png';
+import { createSprite } from '../helpers/index.js';
 
 export default async function createPerson() {
 	const container = new Container();
-	const person = await createSprite(urlPerson);
-	const personShadow = await createSprite(urlPersonShadow);
-	const personEyelids = await createSprite(urlPersonEyelids);
+	const person = await createSprite(allTextureKeys.woman);
+	const personShadow = await createSprite(allTextureKeys.shWoman);
+	const personEyelids = await createSprite(allTextureKeys.eyelidsWoman);
 	
 	personShadow.position.set(-21, 4);
 	personEyelids.position.set(32, 42);
@@ -45,4 +43,3 @@ export default async function createPerson() {
 	
 	return container;
 }
-
