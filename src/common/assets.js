@@ -21,6 +21,8 @@ export const allTextureKeys = {
 	tile: "tile",
 	woman: "woman",
 	wood: "wood",
+	arrow: "arrow",
+	line: "line",
 };
 
 export const appTextures = {
@@ -45,5 +47,7 @@ export const appTextures = {
 		[allTextureKeys.tileYellow]: 'img/tile_yellow.png',
 		[allTextureKeys.tile]: 'img/tile.png',
 		[allTextureKeys.woman]: 'img/woman.png',
-		[allTextureKeys.wood]: 'img/wood.png'
+		[allTextureKeys.wood]: 'img/wood.png',
+		[allTextureKeys.arrow]: 'img/line/arrow.png',
+		[allTextureKeys.line]: 'img/line/line.png',
 };

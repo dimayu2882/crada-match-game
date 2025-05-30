@@ -1,11 +1,11 @@
 import { Container, Assets } from 'pixi.js';
 
 import {
-	createBackgroundDark,
+	createBackgroundDark, createIceBackground,
 	createMatchGrid,
 	createPerson,
 	createSceneLeft
-} from '../entities/index.js';
+} from '../entities/index.js'
 import { appTextures } from '../common/assets.js';
 
 const createGameContainer = () => {
@@ -17,7 +17,8 @@ const createGameContainer = () => {
 const initializeGameElements = async (app) => {
 	const gameContainer = createGameContainer();
 	
-	const [mathGrid, sceneLeft, { container: bgDark, pendulum },
+	const [mathGrid, sceneLeft,
+		{ container: bgDark, pendulum, arrow },
 		person] = await Promise.all([
 		createMatchGrid(app),
 		createSceneLeft(app),
@@ -25,13 +26,17 @@ const initializeGameElements = async (app) => {
 		createPerson()
 	]);
 	
-	person.zIndex = 4;
+	const frost = await createIceBackground(app);
+	
+	person.zIndex = 3;
 	pendulum.zIndex = 5;
-	mathGrid.zIndex = 6;
+	arrow.zIndex = 6;
+	mathGrid.zIndex = 7;
+	frost.zIndex = 8;
 	
 	gameContainer.addChild(
 		mathGrid, sceneLeft, bgDark,
-		person, pendulum
+		person, pendulum, arrow, frost
 	);
 	
 	return gameContainer

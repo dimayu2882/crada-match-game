@@ -7,10 +7,12 @@ import { createSprite, getRandomElement } from '../helpers/index.js'
 export default async function createPendulum(app) {
 	const container = new Container();
 	
+	// Pendulum
 	const pendulum = await createSprite(allTextureKeys.pendulum);
 	pendulum.height = app.screen.height;
 	
-	const randomStarObject = getRandomElement(STARS)
+	// Random star
+	const randomStarObject = getRandomElement(STARS);
 	const randomStar = await createSprite(randomStarObject.textureKey);
 	
 	container.addChild(pendulum, randomStar);
