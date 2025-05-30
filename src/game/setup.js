@@ -27,6 +27,7 @@ const initializeGameElements = async (app) => {
 	
 	person.zIndex = 4;
 	pendulum.zIndex = 5;
+	mathGrid.zIndex = 6;
 	
 	gameContainer.addChild(
 		mathGrid, sceneLeft, bgDark,

@@ -4,6 +4,7 @@ import createSceneLeft from './backgroundLeft.js';
 import createPerson from './person.js';
 import createBackgroundDark from './backgroundLeftDark.js';
 import createPendulum from './pendulum.js';
+import createAnimeCurtain from './animeCurtain.js';
 
 export {
 	createBackground,
@@ -11,5 +12,6 @@ export {
 	createSceneLeft,
 	createPerson,
 	createBackgroundDark,
-	createPendulum
+	createPendulum,
+	createAnimeCurtain,
 }

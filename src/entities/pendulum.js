@@ -1,15 +1,21 @@
 import { Container } from 'pixi.js'
 
 import { allTextureKeys } from '../common/assets.js'
-import { createSprite } from '../helpers/index.js'
+import { STARS } from '../common/constants.js'
+import { createSprite, getRandomElement } from '../helpers/index.js'
 
-export default async function createPendulum() {
+export default async function createPendulum(app) {
 	const container = new Container();
 	
 	const pendulum = await createSprite(allTextureKeys.pendulum);
-	pendulum.anchor.set(0, .2);
+	pendulum.height = app.screen.height;
 	
-	container.addChild(pendulum);
+	const randomStarObject = getRandomElement(STARS)
+	const randomStar = await createSprite(randomStarObject.textureKey);
+	
+	container.addChild(pendulum, randomStar);
+	
+	randomStar.position.set(container.width / 2 - randomStar.width / 2, container.height - randomStar.height * 2 + 10);
 	
 	return container;
 }
