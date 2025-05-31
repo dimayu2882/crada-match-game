@@ -3,14 +3,13 @@ import { Container, Ticker } from 'pixi.js'
 import { allTextureKeys } from '../common/assets.js'
 import { createSprite } from '../helpers/index.js'
 
-export default async function createArrow(app) {
+export default async function createArrow() {
 	const arrowContainer = new Container();
 	arrowContainer.label = 'arrow';
-	arrowContainer.position.set(app.screen.width / 3, 0);
 	
 	// Arrow
 	const arrow = await createSprite(allTextureKeys.arrow);
-	arrow.scale.set(.5);
+	arrow.scale.set(-.5, .5);
 	
 	// Lines
 	const lines = new Container();
@@ -23,7 +22,7 @@ export default async function createArrow(app) {
 		lineSprites.push(line);
 	}
 	
-	lines.x = arrow.width + 20;
+	lines.x = - arrow.width * 2 - 20;
 	arrowContainer.addChild(arrow, lines);
 
 	// Анимация с волной (фазовый сдвиг)

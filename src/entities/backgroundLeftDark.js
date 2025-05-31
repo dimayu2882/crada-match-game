@@ -2,12 +2,12 @@ import {
 	Container,
 	Graphics,
 	Ticker
-} from 'pixi.js'
+} from 'pixi.js';
 
-import { allTextureKeys } from '../common/assets.js'
-import { createSprite } from '../helpers/index.js'
-import createArrow from './arrow.js'
-import { createPendulum, createAnimeCurtain } from './index.js'
+import { allTextureKeys } from '../common/assets.js';
+import { createSprite } from '../helpers/index.js';
+import createArrow from './arrow.js';
+import { createPendulum, createAnimeCurtain } from './index.js';
 
 export default async function createBackgroundDark(app) {
 	const container = new Container()
@@ -33,28 +33,25 @@ export default async function createBackgroundDark(app) {
 	
 	// 3. Анимация маски
 	const animateMask = () => {
-		const totalWidth = bgDark.width
-		let currentWidth = 0
-		const speed = 1
+		const totalWidth = bgDark.width;
+		let currentWidth = 0;
+		const speed = 1;
 		
 		const ticker = new Ticker()
 		ticker.add(() => {
 			if (currentWidth < totalWidth) {
-				currentWidth += speed
-				const t = currentWidth / totalWidth
-				const eased = 0.5 - 0.5 * Math.cos(Math.PI * t) // easeInOutSine
-				const easedWidth = eased * totalWidth
+				currentWidth += speed;
+				const t = currentWidth / totalWidth;
+				const eased = 0.5 - 0.5 * Math.cos(Math.PI * t);
+				const easedWidth = eased * totalWidth;
 				mask.clear()
 					.rect(bgDark.width - easedWidth, 0, easedWidth, bgDark.height)
 					.fill(0xFFFFFF)
 				pendulum.position.set(app.screen.width / 2 - pendulum.width / 2 - easedWidth, 0);
-				arrow.position.set(
-					app.screen.width / 2 + pendulum.width / 3 - easedWidth,
-					app.screen.height / 2 - arrow.height
-				);
+				arrow.position.set(app.screen.width / 2 - 20 - easedWidth, app.screen.height / 2 - arrow.height);
 			} else {
-				ticker.stop()
-				ticker.destroy()
+				ticker.stop();
+				ticker.destroy();
 			}
 		});
 		ticker.start();
@@ -66,5 +63,5 @@ export default async function createBackgroundDark(app) {
 	
 	container.addChild(animContainer);
 	
-	return { container, pendulum, arrow }
+	return { container, pendulum, arrow, getTargetPosition: () => pendulum.children[1].getGlobalPosition() }
 }

@@ -17,27 +17,32 @@ const createGameContainer = () => {
 const initializeGameElements = async (app) => {
 	const gameContainer = createGameContainer();
 	
-	const [mathGrid, sceneLeft,
-		{ container: bgDark, pendulum, arrow },
+	const [sceneLeft,
+		{ container: bgDark, pendulum, arrow, getTargetPosition },
 		person] = await Promise.all([
-		createMatchGrid(app),
 		createSceneLeft(app),
 		createBackgroundDark(app),
 		createPerson()
 	]);
 	
-	const frost = await createIceBackground(app);
+	const {
+		container: frost,
+		ticker: frostTicker
+	} = await createIceBackground(app);
 	
 	person.zIndex = 3;
 	pendulum.zIndex = 5;
 	arrow.zIndex = 6;
-	mathGrid.zIndex = 7;
 	frost.zIndex = 8;
 	
-	gameContainer.addChild(
-		mathGrid, sceneLeft, bgDark,
+	gameContainer.addChild(sceneLeft, bgDark,
 		person, pendulum, arrow, frost
 	);
+	
+	const mathGrid = await createMatchGrid(app, getTargetPosition);
+	mathGrid.zIndex = 7;
+	
+	gameContainer.addChild(mathGrid);
 	
 	return gameContainer
 }
